@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>INF-2005 TP2-</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- font-awesome pour les icons -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<!-- my main styles -->
+	<link href="assets/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+	<div id="flight_app">
+		<header>
+			<div class="site_w">
+				<nav>
+					<ul>
+						<li><a href="index.html">Accueil</a></li>
+						<li>
+							<a href="#" @click.prevent class="navlink">Affichage <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+							<ul class="sub_1">
+								<li class="tgsb2"><a @click.prevent="showInfobox=false" href="#"><i class="fa fa-low-vision" aria-hidden="true"></i> Masquer l'info box</a></li>
+								<li class="tgsb2"><a @click.prevent="showPlane=false" href="#"><i class="fa fa-low-vision" aria-hidden="true"></i> Masquer l'avion</a></li>
+								<li class="tgsb2"><a @click.prevent="showInfobox=true" href="#"><i class="fa fa-eye" aria-hidden="true"></i> Afficher l'info box</a></li>
+								<li class="tgsb2"><a @click.prevent="showPlane=true" href="#"><i class="fa fa-eye" aria-hidden="true"></i> Afficher l'avion box</a></li>
+							</ul>
+						</li>
+						<li><a href="#" @click.prevent>Services</a></li>
+						<li><a href="#" @click.prevent>Contact</a></li>
+					</ul>
+				</nav>
+				<div class="logo">
+					<p>Royal<span>Airlines</span> </p>
+					<img src="assets/img/icon-plane.png" alt="logo Airlines">
+				</div>
+				<div class="clear"></div>
+			</div>
+		</header>
+		<!-- maincontainer -->
+		<div class="maincontainer">
+			<div class="site_w">
+				<h1><i class="fa fa-plane" aria-hidden="true"></i> Planificateur de vol</h1>
+				<div class="wraper">
+					<!-- Card -->
+					<div class="wrap_card">
+						<div id="plane_box" class="plane_box" v-if="showPlanebox">
+							<div class="wrapinfobox">
+								<div class="infobox" v-if="showInfobox">
+									<p>Départ: <span>{{depart}}</span></p>
+									<p>Arrivée: <span>{{arival}}</span></p>
+									<p>Prochaine ville: <span>{{nextTown}}</span></p>
+									<p>Vitesse: <span>{{planeSpeed}}</span></p>
+									<p>Temps restant: <span>{{timeToleave}}</span></p>
+									<p>Heure: <span>{{planeHour}}</span></p>
+								</div>
+								<div class="arrow-down" v-if="showInfobox"></div>
+							</div>
+							<img class="airbus" v-if="showPlane" v-bind:class="{rotate3d : sensInverse}" @click="showBigPlane=true" src="assets/img/airbus.png" alt="Airbus">
+						</div>
+						<canvas id="canvas" width=900 height=843></canvas>
+						<img class="card" src="assets/img/canada_map.jpg" alt="Canada Map">
+					</div>
+					<!-- Param -->
+					<div class="params">
+						<div class="title box">
+							<h2>Planifier votre trajet</h2>
+							<p>Pour planifier le trajet, sélectionner d'abord votre ville de départ.</p>
+						</div>
+						<!--  -->
+						<div class="box recap" v-if="showRecap">
+							<h3><i class="fa fa-bar-chart" aria-hidden="true"></i> Résumé du vol</h3>
+							<p v-html="userRecap"></p>
+						</div>
+						<!--  -->
+						<div class="box depart" v-if="showDepartBt">
+							<h3>Ville de départ</h3>
+							<select v-model="udepart" @change="showArivalBt=true">
+								<option v-for="(ville, key) in canadaMap" v-bind:value="key">{{ ville.name }}</option>
+							</select>
+						</div>
+						<div class="box arival" v-if="showArivalBt" @change="showEscales=true">
+							<h3>Ville d'arrivée</h3>
+							<select v-model="uarival">
+								<option v-for="(ville, key) in canadaMap" v-bind:value="key">{{ ville.name }}</option>
+							</select>
+						</div>
+						<!--  -->
+						<div class="escales" v-if="showEscales">
+							<div class="box esc">
+								<p>Vous pouvez sélectionner jusqu'à trois escales.</p>
+							</div>
+							<div class="box">
+								<h3>Escale 01</h3>
+								<select v-model="escale1">
+									<option v-for="(ville, key) in canadaMap" v-bind:value="key">{{ ville.name }}</option>
+								</select>
+							</div>
+							<div class="box">
+								<h3>Escale 02</h3>
+								<select v-model="escale2">
+									<option v-for="(ville, key) in canadaMap" v-bind:value="key">{{ ville.name }}</option>
+								</select>
+							</div>
+							<div class="box">
+								<h3>Escale 03</h3>
+								<select v-model="escale3">
+									<option v-for="(ville, key) in canadaMap" v-bind:value="key">{{ ville.name }}</option>
+								</select>
+							</div>
+							<div class="box submit" v-if="showSubmit">
+								<div class="btn" @click="processFlight">Afficher le trajet</div>
+							</div>
+							<div class="box error" v-if="showError" v-html="userError"></div>
+						</div>
+						<div class="box submit" v-if="showRestart">
+							<a href="index.html" class="btn res_btn" >Recommencer</a>
+						</div>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<!-- Slider -->
+				<div class="equipage">
+					<h1><i class="fa fa-users" aria-hidden="true"></i> Membres de l'équipage</h1>
+					<div id="sliderz">
+						<span class="next"> <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> </span>
+						<span class="prev"> <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> </span>
+						<ul>
+							<li v-for="person in persons">
+								<img v-bind:src="person.img" v-bind:alt="person.name">
+								<span><i class="fa fa-user" aria-hidden="true"></i> {{person.name}} -<small>{{person.title}}</small></span>
+							</li>
+						</ul>  
+					</div>
+				</div>
+				<!-- BigPlane -->
+				<div class="bigplane" v-if="showBigPlane">
+					<div class="wraper">
+						<div class="btn cloz" @click="showBigPlane=false"><i class="fa fa-times" aria-hidden="true"></i> Fermé</div>
+						<a href="assets/img/airbus_big.png" target="_blank" class="btn"><i class="fa fa-external-link" aria-hidden="true"></i> Ouvrir l'image dans une nouvelle fenêtre</a>
+						<img src="assets/img/airbus_big.png" alt="Airplane">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  -->
+	<footer>
+		<span>© Copyright 2016 Joe - TP2</span>
+	</footer>
+	<script src="assets/js/jquery.min.js"></script>
+	<!-- Vue.js est une librairie qui sert seulement a rendre la manipulation du DOM plus facile https://vuejs.org -->
+	<script src="assets/js/vue.js"></script>
+	<!-- my main script -->
+	<script src="assets/js/main.js"></script>
+</body>
+</html>
