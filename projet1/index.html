@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>INF-2005-Projet 01</title>
+	<!-- Responsive and mobile friendly stuff -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- font-awesome pour les icons -->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<!-- my main styles -->
+	<link href="assets/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+	<header>
+		<div class="site_w trans">
+			<div class="logo">
+				<img src="assets/img/pizza-logo.png" alt="logo INF-3105-Projet">
+			</div>
+			<nav>
+				<ul>
+					<li><a href="index.html">Accueil</a></li>
+					<li><a href="#" class="navlink" data-target="#pates">Pâtes</a></li>
+					<li><a href="#" class="navlink" data-target="#pizza">Pizzas</a></li>
+					<li><a href="#" class="navlink" data-target="#hamb">Hamburgers</a></li>
+					<li><a href="#" class="navlink">Contact</a></li>
+				</ul>
+			</nav>
+			<div class="socs_icons">
+				<a href="#" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+				<a href="#" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+				<a href="#" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+				<a href="#" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</header>
+	<!-- maincontainer -->
+	<div class="maincontainer trans">
+		<div class="slide"></div>
+		<div class="mainpad">
+			<div class="big_wrapper site_w">
+				<div class="instruc">
+					<h1><i class="fa fa-diamond" aria-hidden="true"></i> The King of Fast food</h1>
+					<span><i class="fa fa-hand-o-right" aria-hidden="true"></i> Faites un choix dans le menu de gauche, ajouter les garnitures dans la colone de droite et commander.</span>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero molestiae magnam quaerat doloribus, quis natus neque cum consequatur inventore tempore aliquid deserunt repellendus ipsum adipisci iure aut aliquam, laboriosam, possimus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur ad optio officiis, iusto consequuntur, alias mollitia repellat deleniti accusantium quo voluptate delectus! Necessitatibus ad optio cumque harum, asperiores ea eaque.</p>
+				</div>
+				<div class="cmd_wrap">
+					<aside>
+						<h2>Choix de nourritures</h2>
+						<div id="pates" class="block" data-choice="0">
+							<img src="assets/img/pates.jpg" alt="pates">
+							<div class="desc">
+								<h3>Pâtes</h3>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+								<h4>
+									<small>À partir de</small>
+									19.99$
+								</h4>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div id="pizza" class="block" data-choice="1">
+							<img src="assets/img/pizza.jpg" alt="pates">
+							<div class="desc">
+								<h3>Pizzas</h3>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+								<h4>
+									<small>À partir de</small>
+									14.99$
+								</h4>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div id="hamb" class="block" data-choice="2">
+							<img src="assets/img/hamb.jpg" alt="pates">
+							<div class="desc">
+								<h3>Hamburgers</h3>
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+								<h4>
+									<small>À partir de</small>
+									9.99$
+								</h4>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</aside>
+					<div class="cmd_container">
+						<form action="GET" id="cmdOrder">
+							<div class="step1">
+								<div class="choice_wrap box">
+									<div class="none">
+										<h4><i class="fa fa-ban" aria-hidden="true"></i> Veuillez d'abord cliquer sur votre choix de nourriture dans le menu de gauche.</h4>
+									</div>
+									<div class="order">
+										<h2><i class="fa fa-filter" aria-hidden="true"></i> Commande</h2>
+										<div class="thmb"><img src="assets/img/pates.jpg" alt="pates"></div>
+										<div class="cmd">
+											<h3>Pizzas 19.99$</h3>
+											<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. orem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+											<div class="garnit">
+												<fieldset>
+									                <legend>Choix de Garnitures</legend>
+							                        <input type="checkbox" name="garniture" value="0" />Peperoni <small>+5$</small><br/>
+							                        <input type="checkbox" name="garniture" value="1" />Olives <small>+3$</small><br/>
+							                        <input type="checkbox" name="garniture" value="2" />Bacon <small>+6$</small><br/>
+							                        <input type="checkbox" name="garniture" value="3" />Jambon <small>+4$</small><br/>
+							                        <input id="hid_choiceID" type="hidden" name="choice" value="0" />
+									        	</fieldset>
+						                        <div class="qty">
+						                        	<span>Quantité <small>* 01 minimum</small>:</span>
+						                        	<input type="number" name="qty" min="1" required/>
+							                    </div>
+											</div>
+										</div>
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="next_btn"><span class="inkbtn">Étape suivante</span></div>
+							</div>
+							<div class="step2">
+								<div class="box">
+									<h2><i class="fa fa-user" aria-hidden="true"></i> Informations personnelles</h2>
+									<div class="inpt_deflt">
+										<input type="text" name="nom" placeholder="Votre nom:" required />
+										<input type="email" name="mail" placeholder="Votre courriel:" required/>
+										<input type="tel" name="phone" placeholder="Votre Téléphone:" required/>
+										<div class="clear"></div>
+									</div>
+									<div class="add">
+										<h4>Votre addresse:</h4>
+										<p>Entrer une addresse valide, Ex: 705 Rue Sainte-Catherine O, Montréal</p>
+										<div class="inpt_deflt">
+											<input type="text" name="adress" placeholder="Votre adresse:" required/>
+											<div class="clear"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="submit_btn"><input class="inkbtn" id="submit" type="submit" value="Commander"></div>
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+
+				<div class="bill">
+					<div class="spin"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></div>
+					<div class="bill_wraper">
+						<div class="fact box">
+							<div class="thmb">
+								<img src="assets/img/pates.jpg" alt="commande">
+							</div>
+							<div class="cmdtable">
+								<div class="headd">
+									<div class="l">
+										<h4>Facture n° 001</h4>
+										<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+									</div>
+									<div class="r">
+										<span id="fact_print"><i class="fa fa-print" aria-hidden="true"></i> Imprimer</span>
+									</div>
+									<div class="clear"></div>
+								</div>
+								<div class="infos">
+									<p class="name">Nom: <b></b></p>
+									<p class="mail">Courriel: <b></b></p>
+									<p class="tel">Téléphone: <b></b></p>
+									<p class="qty">Quantité: <b></b></p>
+								</div>
+								<table class="items">
+									<tr class="head">
+										<th class="f">Items</th>
+										<th class="s">Prix</th>
+									</tr>
+									<tr class="nourit">
+										<td class="f"></td>
+										<td class="s"></td>
+									</tr>
+								</table>
+								<table class="total">
+									<tr>
+										<td class="f">Total:</td>
+										<td class="s"></td>
+									</tr>
+								</table>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="driection box">
+							<h2><i class="fa fa-map" aria-hidden="true"></i> Directions</h2>
+							<p><i class="fa fa-map-marker" aria-hidden="true"></i> L'addresse de notre restaurant se trouve au <b>405 Rue Sainte-Catherine Est, Montréal</b></p>
+							<p class="dest"><i class="fa fa-map-marker" aria-hidden="true"></i> L'addresse de livraison choisie est: <b></b></p>
+							
+							<div class="cont">
+								<div id="mappz"></div>
+								<div id="mapdir"></div>
+								<div class="clear"></div>
+							</div>
+						</div>
+
+						<div class="end_btn"><a href="index.html" class="inkbtn">Passer une nouvelle commande</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="site_w">
+			<span>Copyright © 2016 Joe for INF 2005 </span>
+		</div>
+	</footer>
+
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8xu-vqK62lbrYighDaYzB2_jYrMzrwog" type="text/javascript"></script>
+	<script type="text/javascript" src="assets/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="assets/js/script.js"></script>
+</body>
+</html>
